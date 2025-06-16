@@ -3,15 +3,16 @@
 
 #HotIf WinActive("– GIMP", , "*[Untitled]")
 ~*LButton up:: {
-    static lastSave := A_TickCount - 5000
     static saveInterval := 5000  ; Adjust the interval as needed (in milliseconds)
+    static lastSave := A_TickCount - saveInterval
 
-    MouseGetPos(&x, &y)
-    if (x <= 275 or y <= 170) ;don't save when click is outside top/left of canvas
+    winTitle := WinGetTitle("– GIMP")
+    if (SubStr(winTitle, 1, 1) != "*") ;Don't save if there are no changes
         return
-    OutputDebug("Mouse up at: " x ", " y "`nLast save was " (A_TickCount - lastSave) // 1000 " seconds ago`n")
 
-    if (A_TickCount - lastSave >= saveInterval) {
+    OutputDebug("Last save was " (A_TickCount - lastSave) // 1000 " seconds ago`n")
+
+    if (A_TickCount - lastSave >= saveInterval) { ;don't save if already saved less than 5 seconds ago
         OutputDebug("Saving...`n")
         lastSave := A_TickCount
         Send("^s")  ;press Ctrl+S to trigger GIMP's save function

@@ -1,6 +1,9 @@
 # gimp-autosave-ahk
-Automatically press Ctrl+S when conditions are met
 
-This script trys to save (press ctrl+s) when you release the left mouse button (and other conditions are met)
+This script automatically saves your current image by virtually pressing ctrl+s when you release the left mouse button.
 
-Pressing 'Escape' on the Save Image dialog will disable auto saving until the GIMP window title changes.
+Does not try to save when clicking tools or menu items. Adjust this to the size of your gimp window layout. For me its: x <= 275 or y <= 170
+
+Does not try to save more than one time every 5 seconds.
+
+Does not try to save when GIMP window title includes "*[Untitled]"
